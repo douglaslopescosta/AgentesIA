@@ -112,7 +112,7 @@ if uploaded_file is not None:
                 model="gpt-4.1",
                 messages=chat_messages,
                 temperature=0.4,
-                max_tokens=800
+                max_tokens=5000
             )
             resposta = response.choices[0].message.content
             st.session_state.chat_history.append((pergunta, resposta))
@@ -186,7 +186,7 @@ Transcrição a ser analisada:
                 model="gpt-4.1",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.6,
-                max_tokens=1200
+                max_tokens=5000
             )
             markdown = response.choices[0].message.content
 
