@@ -134,7 +134,7 @@ if uploaded_file is not None:
         prompt = f"""
                     Você é um assistente especializado em processos comerciais e ciclo de vendas com
                     grande experiência em organização e condução de reuniões comerciais, 
-                    capaz de sintetizar de maneira assertiva e executiva os principais pontos da reunião e 
+                    capaz de sintetizar em no máximo 2.000 tokens de retorno de maneira assertiva e executiva os TODOS pontos da reunião e 
                     que sejam relevantes para o acompanhamento das ações de vendas e os interlocutores
                     e também é especialista em mapas mentais navegáveis (formato Markdown para Markmap) 
                     que irá trabalhar SEMPRE com base no arquivo de transcrição apresentado.
@@ -175,12 +175,12 @@ Exemplo de sintaxe esperada:
 
 **Regras importantes:**
 - NÃO use cabeçalhos Markdown (`##`, `###`, etc.) nem separadores (`---`). Use SOMENTE listas aninhadas (bullets) compatíveis com Markmap.
-- Siga EXATAMENTE o exemplo abaixo:
 - Organize todas as falas de acordo com essa estrutura, agrupando corretamente cada tema, participante, conteúdo e decisão/resumo.
+- SEMPRE garanta que dentro dos 2000 tokens retornados estejam a integridade do temas tratados na reunião.
 - Utilize sempre tópicos e subtópicos, exatamente nesta ordem de ramificação.
 - Só inclua informações realmente presentes na transcrição.
 - Seja fiel e coerente em termos de participante e tema. traga no mapa exatamente quem e o que foi falado.
-
+- Siga EXATAMENTE o exemplo abaixo:
 Transcrição a ser analisada:
 '''{transcricao}'''
         """
@@ -189,7 +189,7 @@ Transcrição a ser analisada:
                 model="gpt-4.1",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.6,
-                max_tokens=1000
+                max_tokens=2000
             )
             markdown = response.choices[0].message.content
 
