@@ -112,7 +112,7 @@ if uploaded_file is not None:
                 model="gpt-4.1",
                 messages=chat_messages,
                 temperature=0.4,
-                max_tokens=5000
+                max_tokens=2500
             )
             resposta = response.choices[0].message.content
             st.session_state.chat_history.append((pergunta, resposta))
@@ -147,7 +147,7 @@ if uploaded_file is not None:
                     e outros que, como especialista em reuniões comerciais, entender que são relevantes para
                     acelerar o ciclo de vendas da empresa. Garanta SEMPRE que TODOS os temas envolvendo clientes, oportunidades de negócio
                     e prospects estejam representados no mapa mental e que todos os participantes que tiveram uma fala na reunião estejam 
-                    representados no mapa mental. Seja ASSERTIVO  em associar o participante ao tema. 
+                    representados no mapa mental. Seja ASSERTIVO  em associar o participante ao tema. Sempre gere um mapa navegável no padrão "Logic Chart"
                     Gere um mapa mental com a seguinte estrutura hierárquica, ramificando os tópicos obrigatoriamente nesta ordem:
 
 - Reunião (título/assunto/data)
@@ -173,7 +173,9 @@ Exemplo de sintaxe esperada:
     - Novos Leads
       - Serão apresentados na próxima semana
 
-Regras:
+**Regras importantes:**
+- NÃO use cabeçalhos Markdown (`##`, `###`, etc.) nem separadores (`---`). Use SOMENTE listas aninhadas (bullets) compatíveis com Markmap.
+- Siga EXATAMENTE o exemplo abaixo:
 - Organize todas as falas de acordo com essa estrutura, agrupando corretamente cada tema, participante, conteúdo e decisão/resumo.
 - Utilize sempre tópicos e subtópicos, exatamente nesta ordem de ramificação.
 - Só inclua informações realmente presentes na transcrição.
@@ -186,7 +188,7 @@ Transcrição a ser analisada:
                 model="gpt-4.1",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.6,
-                max_tokens=5000
+                max_tokens=2000
             )
             markdown = response.choices[0].message.content
 
