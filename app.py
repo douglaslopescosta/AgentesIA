@@ -188,7 +188,7 @@ Transcrição a ser analisada:
                 model="gpt-4.1",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.6,
-                max_tokens=2000
+                max_tokens=1000
             )
             markdown = response.choices[0].message.content
 
