@@ -94,8 +94,8 @@ if uploaded_file is not None:
     pergunta = st.text_input(
     "Pergunte algo sobre a reunião:",
     key="pergunta",
-    max_chars=60,
-    placeholder="Digite sua pergunta (máx. 60 caracteres)"
+    max_chars=100,
+    placeholder="Digite sua pergunta (máx. 100 caracteres)"
     )
 
     if st.button("Perguntar") and pergunta and transcricao.strip():
@@ -112,7 +112,7 @@ if uploaded_file is not None:
                 model="gpt-4.1",
                 messages=chat_messages,
                 temperature=0.4,
-                max_tokens=2500
+                max_tokens=2000
             )
             resposta = response.choices[0].message.content
             st.session_state.chat_history.append((pergunta, resposta))
@@ -134,8 +134,8 @@ if uploaded_file is not None:
         prompt = f"""
                     Você é um assistente especializado em processos comerciais e ciclo de vendas com
                     grande experiência em organização e condução de reuniões comerciais, 
-                    capaz de sintetizar em no máximo 2.000 tokens de retorno de maneira assertiva e executiva os TODOS pontos da reunião e 
-                    que sejam relevantes para o acompanhamento das ações de vendas e os interlocutores
+                    capaz de sintetizar, em no máximo 2.000 tokens de retorno, de maneira assertiva e executiva 
+                    TODOS pontos da reunião     que sejam relevantes para o acompanhamento das ações de vendas e os interlocutores
                     e também é especialista em mapas mentais navegáveis (formato Markdown para Markmap) 
                     que irá trabalhar SEMPRE com base no arquivo de transcrição apresentado.
 
