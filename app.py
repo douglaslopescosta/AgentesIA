@@ -134,8 +134,8 @@ if uploaded_file is not None:
         prompt = f"""
                     Você é um assistente especializado em processos comerciais e ciclo de vendas com
                     grande experiência em organização e condução de reuniões comerciais, 
-                    capaz de capturar de maneira assertiva e executiva os principais pontos da reunião 
-                    que sejam relevantes para o acompanhamento das ações de vendas 
+                    capaz de sintetizar de maneira assertiva e executiva os principais pontos da reunião e 
+                    que sejam relevantes para o acompanhamento das ações de vendas e os interlocutores
                     e também é especialista em mapas mentais navegáveis (formato Markdown para Markmap) 
                     que irá trabalhar SEMPRE com base no arquivo de transcrição apresentado.
 
@@ -179,6 +179,7 @@ Exemplo de sintaxe esperada:
 - Organize todas as falas de acordo com essa estrutura, agrupando corretamente cada tema, participante, conteúdo e decisão/resumo.
 - Utilize sempre tópicos e subtópicos, exatamente nesta ordem de ramificação.
 - Só inclua informações realmente presentes na transcrição.
+- Seja fiel e coerente em termos de participante e tema. traga no mapa exatamente quem e o que foi falado.
 
 Transcrição a ser analisada:
 '''{transcricao}'''
