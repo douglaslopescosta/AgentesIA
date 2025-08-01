@@ -132,52 +132,56 @@ if uploaded_file is not None:
 
     if st.button("Gerar Mapa Mental") and transcricao.strip():
         prompt = f"""
-                   Você é um assistente especialista em processos comerciais, ciclo de vendas e organização de reuniões comerciais. Seu papel é **sintetizar, de maneira executiva e assertiva, TODOS os pontos relevantes tratados na transcrição de uma reunião comercial** — sempre focando em temas essenciais para acompanhamento de ações, decisões, oportunidades, clientes, prospects, propostas, parcerias, acordos, processos e gestão da equipe de vendas.
+Você é um assistente especialista em processos comerciais, ciclo de vendas e análise de reuniões comerciais. Seu objetivo é garantir que NENHUMA informação relevante seja omitida ao criar um mapa mental da transcrição abaixo. 
 
-Sua missão é garantir que **nenhum tema, ação, decisão, oportunidade, cliente, participante ativo ou ponto relevante** da reunião seja omitido do mapa mental, respeitando o limite de 2000 tokens de retorno.
-
-**Orientações obrigatórias:**
-- Analise minuciosamente toda a transcrição. Mapeie todos os temas tratados, decisões, dúvidas, propostas, acordos, status, próximos passos, participantes ativos (quem falou), clientes, prospects, oportunidades e qualquer outro elemento relevante do ciclo comercial.
-- NUNCA omita temas, clientes, oportunidades, propostas ou participantes que tenham sido mencionados, mesmo que brevemente.
-- Associe cada tema discutido aos participantes corretos, de forma fiel e coerente ao que foi dito.
-- Mantenha o máximo de integridade das discussões, sem suprimir tópicos relevantes para o acompanhamento ou gestão comercial.
-
-**Regras para geração do mapa mental:**
-- Utilize apenas listas aninhadas em Markdown (bullets) — NUNCA utilize cabeçalhos Markdown (`##`, `###`, etc.) ou linhas separadoras (`---`).
-- Estruture o mapa mental EXATAMENTE na seguinte ordem hierárquica (padrão "Logic Chart"):
+**INSTRUÇÕES OBRIGATÓRIAS:**
+- Analise toda a transcrição e mapeie absolutamente todos os temas, assuntos, clientes, oportunidades, decisões, dúvidas, processos, participantes e próximos passos discutidos.
+- Para cada tema ou subtema abordado, identifique e crie um subtópico SEPARADO para cada participante que falou sobre o tema, SEM agrupamento de falas diferentes no mesmo item. 
+- Sempre que houver participação de mais de uma pessoa sobre o mesmo tema, crie ramificações distintas com o nome do participante, detalhando individualmente sua contribuição, status, observação ou decisão.
+- Nunca omita falas, clientes, oportunidades, temas, dúvidas ou decisões relevantes, mesmo que sejam citados brevemente.
+- NÃO use cabeçalhos Markdown (`##`, `###` etc.) ou linhas separadoras (`---`): use apenas listas aninhadas (bullets) compatíveis com Markmap.
+- Organize o mapa mental SEMPRE nesta estrutura lógica e hierárquica:
     - Reunião (título/assunto/data)
-        - Participantes (listar todos que falaram)
-        - Tema Discutido 1
-            - Participante (quem falou sobre este tema)
-                - Palavra-chave do conteúdo/contribuição
-                    - Resumo & Decisão (primeiro resumo, depois decisão/encaminhamento/status)
-        - Tema Discutido 2
-            - ...
-- Agrupe todas as falas de acordo com esta estrutura, sendo fiel ao conteúdo da transcrição.
-- Só inclua informações realmente presentes no documento — NUNCA invente ou generalize.
-- Siga SEMPRE o exemplo abaixo, sem alterar a estrutura:
+        - Tema ou cliente tratado
+            - Subtema/Oportunidade/Status (se houver)
+                - Participante 1
+                    - Fala/contribuição/resumo
+                - Participante 2
+                    - Fala/contribuição/resumo
+                - Participante ...
+                    - Fala/contribuição/resumo
 
-# Reunião de Vendas 21.07.2025
-- Participantes
-  - Marcos Roberto Paschoal
-  - Daniela Sampaio
-- Oportunidades do CRM
-  - Marcos Roberto Paschoal
-    - Claro
-      - Continua em negociação com horizonte de fechamento em Agosto/2025
-- Pipeline
-  - Daniela Sampaio
-    - Novos Leads
-      - Serão apresentados na próxima semana
+**Exemplo obrigatório:**
 
-**IMPORTANTE:**  
-- A integridade de todos os temas tratados na reunião deve estar preservada no mapa mental, mesmo que resuma cada um em poucas palavras para respeitar o limite de tokens.
-- Não omita tópicos, clientes, nomes ou decisões.
-- O resultado DEVE ser totalmente compatível com Markmap (listas aninhadas).
+# Reunião Comercial 21.07.2025
+- Oportunidades Hunting
+  - SAFRA
+    - Status da PoC
+      - Lucas Almeida
+        - Está tentando contato com os responsáveis.
+      - Douglas Costa
+        - Indicou que a PoC está em análise desde Outubro/2024.
+  - Ambev
+    - Processo de Renovação
+      - Marcos Paschoal
+        - Detalhou avanços do contrato.
+      - Daniela Sampaio
+        - Comentou feedback recebido do cliente.
+- Propostas em Andamento
+  - Rede D'Or
+    - Negociação Comercial
+      - Monica Oliveira
+        - Explicou condições da proposta.
+
+**Regras finais:**
+- Represente todos os temas, clientes, oportunidades, processos e participantes ativos exatamente como aparecem na transcrição.
+- Mantenha clareza e objetividade, resuma cada fala em uma frase curta, mas NUNCA omita participantes ou o conteúdo real de suas falas.
+- Utilize apenas listas aninhadas compatíveis com Markmap, exatamente como no exemplo acima.
 
 Transcrição a ser analisada:
 '''{transcricao}'''
-        """
+"""
+
         with st.spinner('Gerando mapa mental...'):
             response = client.chat.completions.create(
                 model="gpt-4.1",
